@@ -1,4 +1,4 @@
-import unittest
+from twisted.trial import unittest
 from db_controller import DbController
 from settings import db_config
 
@@ -12,7 +12,7 @@ class TestDbController(unittest.TestCase):
         """
         Test db controller
         """
-        db_object = DbController();
+        db_object = DbController()
         cfg = db_config()
         self.assertEqual(db_object.host, cfg["host"])
         self.assertEqual(db_object.user, cfg["user"])

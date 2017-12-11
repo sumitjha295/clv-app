@@ -3,6 +3,7 @@ import numpy as np
 import dill
 import datetime
 from clv_prediction import CLVPrediction
+import inspect
 
 
 class CLVUtils:
@@ -65,8 +66,10 @@ class CLVUtils:
         try:
             with open(model_filename, 'rb') as file:
                 model = dill.load(file)
+                data = np.array([[1,2,4,5,6,6],[1,2,4,5,6,6]])
+                print(model.predict(data))
                 # dummy prediction
-                data_frame['predicted_clv'] = pd.Series(np.random.randn(len(data_frame.index)), index=data_frame.index)
+                #data_frame['predicted_clv'] = pd.Series(np.random.randn(len(data_frame.index)), index=data_frame.index)
                 return data_frame
         except Exception as predict_exception:
             raise predict_exception

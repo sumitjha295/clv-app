@@ -3,7 +3,7 @@ from clv_prediction import CLVPrediction
 from db_controller import DbController
 
 
-class TestOrder(unittest.TestCase):
+class TestCLVPrediction(unittest.TestCase):
 
     def setUp(self):
         """

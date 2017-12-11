@@ -3,20 +3,20 @@ from clv_utils import CLVUtils
 import os
 
 
-class TestOrder (unittest.TestCase) :
+class TestCLVUtils(unittest.TestCase) :
 
     def setUp(self):
         self.current_path = os.path.dirname(os.path.abspath(__file__))
         self.clv_utils = CLVUtils()
-        self.clv_resource_path = self.current_path + '/../resource/test_orders/test_orders.csv'
-        self.clv_model_path = self.current_path + '/../resource/model.dill'
-        self.clv_export_path = self.current_path + '/../output/prediction.csv'
+        self.clv_resource_path = self.current_path + '/../src/resource/test_orders/test_orders.csv'
+        self.clv_model_path = self.current_path + '/../src/resource/model.dill'
+        self.clv_export_path = self.current_path + '/../src/output/prediction.csv'
 
     def test_clv_import(self):
 
         self.assertRaises(Exception, self.clv_utils.import_from_csv, 'invalid_path.csv')
         self.assertRaises(ValueError, self.clv_utils.import_from_csv, self.current_path +
-                          '/../resource/test_orders/invalid.csv')
+                          '/../src/resource/test_orders/invalid.csv')
 
         df = self.clv_utils.import_from_csv(self.clv_resource_path)
         columns = ['order_id', 'order_item_id', 'num_items', 'revenue', 'created_at_date']

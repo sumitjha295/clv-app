@@ -15,7 +15,7 @@ def predict_and_import():
 
     try:
         print("Import")
-        df = clv_utils.import_from_csv(clv_resource_path, num_rows=10000)
+        df = clv_utils.import_from_csv(clv_resource_path, num_rows=100)
         print("Transform")
         df = clv_utils.transform(df)
         print("Predict")
