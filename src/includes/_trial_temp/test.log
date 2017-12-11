@@ -1,1 +1,6 @@
-2017-12-11 16:26:17+0100 [-] Log opened.
+2017-12-11 22:36:15+0100 [-] Log opened.
+2017-12-11 22:36:15+0100 [-] --> test_clv_utils.TestOrder.test_clv_export <--
+2017-12-11 22:36:15+0100 [-] --> test_clv_utils.TestOrder.test_clv_import <--
+2017-12-11 22:36:15+0100 [-] --> test_clv_utils.TestOrder.test_clv_predict <--
+2017-12-11 22:36:15+0100 [-] --> test_clv_utils.TestOrder.test_clv_save_to_db <--
+2017-12-11 22:36:15+0100 [-] --> test_clv_utils.TestOrder.test_clv_transform <--

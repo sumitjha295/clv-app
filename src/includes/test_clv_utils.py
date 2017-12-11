@@ -19,12 +19,12 @@ class TestOrder (unittest.TestCase) :
                           '/../resource/test_orders/invalid.csv')
 
         df = self.clv_utils.import_from_csv(self.clv_resource_path)
-        columns = ['customer_id', 'order_id', 'order_item_id', 'num_items', 'revenue', 'created_at_date']
+        columns = ['order_id', 'order_item_id', 'num_items', 'revenue', 'created_at_date']
         self.assertCountEqual(df.columns, columns)
         for column in columns:
             self.assertEqual(column in df.columns, True)
 
-        self.assertEqual(df.shape[1], 6)
+        self.assertEqual(df.shape[1], 5)
         self.assertEqual(df.shape[0], 9)
 
     def test_clv_transform(self):

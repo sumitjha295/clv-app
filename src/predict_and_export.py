@@ -1,18 +1,26 @@
 import os
+import sys
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_path + '/includes')
+
 from clv_utils import CLVUtils
 
 
 def predict_and_import():
-    current_path = os.path.dirname(os.path.abspath(__file__))
     clv_utils = CLVUtils()
     clv_resource_path = current_path + '/resource/orders.csv'
     clv_model_filename = current_path + '/resource/model.dill'
     clv_export_filename = current_path + '/output/prediction.csv'
 
     try:
-        df = clv_utils.import_from_csv(clv_resource_path, 50)
+        print("Import")
+        df = clv_utils.import_from_csv(clv_resource_path, num_rows=10000)
+        print("Transform")
         df = clv_utils.transform(df)
+        print("Predict")
         df = clv_utils.predict(df, clv_model_filename)
+        print("Export")
         clv_utils.export_to_csv(df, clv_export_filename)
         clv_utils.save_to_database(df)
         print("Done")

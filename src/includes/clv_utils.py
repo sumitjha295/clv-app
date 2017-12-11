@@ -13,9 +13,10 @@ class CLVUtils:
     @staticmethod
     def import_from_csv(filename, num_rows=None):
         try:
-            columns = ['customer_id', 'order_id', 'order_item_id', 'num_items', 'revenue', 'created_at_date']
+            columns = ['order_id', 'order_item_id', 'num_items', 'revenue', 'created_at_date']
             imported_df = pd.read_csv(
                 filename,
+                index_col='customer_id',
                 parse_dates=['created_at_date'],
                 nrows=num_rows
             )
@@ -41,7 +42,9 @@ class CLVUtils:
                 'longest_interval'
             ]
             transformed_data_frame = pd.DataFrame(columns=clv_columns)
+            iteration = 0
             for customer_id, customer_df in grouped_customer_df:
+                iteration += customer_df.shape[0]
                 grouped_order_df = customer_df.groupby('order_id')
                 transformed_data_frame.loc[customer_id] = [
                     grouped_order_df.num_items.sum().max(),
@@ -53,6 +56,7 @@ class CLVUtils:
                 ]
             transformed_data_frame.index.name = 'customer_id'
             return transformed_data_frame
+
         except Exception as transform_exception:
             raise transform_exception
 
@@ -76,6 +80,7 @@ class CLVUtils:
 
     @staticmethod
     def save_to_database(data_frame):
+        print("save_to_database")
         try:
             CLVPrediction.clean_table()
             for index, row in data_frame.iterrows():
