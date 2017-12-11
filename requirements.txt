@@ -2,3 +2,5 @@ Flask==0.12.2
 dill==0.2.7.1
 numpy==1.13.3
 pandas==0.21.0
+twisted==17.9.0
+PyMySQL== 0.7.11

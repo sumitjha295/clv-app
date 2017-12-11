@@ -2,7 +2,7 @@
     "mysql":{
         "host":"localhost",
         "user":"mias",
-        "passwd":"mias",
+        "password":"mias",
         "db":"ls_db"
     }
 }
