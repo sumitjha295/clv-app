@@ -13,16 +13,11 @@ def predict_and_import():
     clv_export_filename = current_path + '/output/prediction.csv'
 
     try:
-        print("Import")
         df = clv_utils.import_from_csv(clv_resource_path, num_rows=100)
-        print("Transform")
         df = clv_utils.transform(df)
-        print("Predict")
         df = clv_utils.predict(df, clv_model_filename)
-        print("Export")
         clv_utils.export_to_csv(df, clv_export_filename)
         clv_utils.save_to_database(df)
-        print("Done")
     except Exception as e:
         print('Error : %s' % e)
 
