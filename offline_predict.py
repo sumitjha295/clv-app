@@ -2,15 +2,14 @@ import os
 import sys
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, current_path + '/includes')
+sys.path.insert(0, current_path + '/src/includes')
 
 from clv_utils import CLVUtils
 
-
 def predict_and_import():
     clv_utils = CLVUtils()
-    clv_resource_path = current_path + '/resource/orders.csv'
-    clv_model_filename = current_path + '/resource/model.dill'
+    clv_resource_path = current_path + '/src/resource/orders.csv'
+    clv_model_filename = current_path + '/src/resource/model.dill'
     clv_export_filename = current_path + '/output/prediction.csv'
 
     try:

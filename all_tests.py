@@ -3,9 +3,8 @@ import os
 import sys
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, current_path + '/../includes')
-sys.path.insert(0, current_path + '/../tests')
-
+sys.path.insert(0, current_path + '/src/includes')
+sys.path.insert(0, current_path + '/tests')
 
 from test_db_controller import TestDbController
 from test_clv_utils import TestCLVUtils

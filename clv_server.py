@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 import sys
 import os
 current_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, current_path + '/includes')
+sys.path.insert(0, current_path + '/src/includes')
 from db_controller import  DbController
 from clv_prediction import CLVPrediction
 
