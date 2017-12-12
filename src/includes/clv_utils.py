@@ -1,9 +1,8 @@
 import pandas as pd
-import numpy as np
+import numpy
 import dill
 import datetime
 from clv_prediction import CLVPrediction
-import inspect
 
 
 class CLVUtils:
@@ -43,19 +42,29 @@ class CLVUtils:
                 'longest_interval'
             ]
             transformed_data_frame = pd.DataFrame(columns=clv_columns)
-            iteration = 0
             for customer_id, customer_df in grouped_customer_df:
-                iteration += customer_df.shape[0]
                 grouped_order_df = customer_df.groupby('order_id')
+                longest_interval = -1
+                for order_id, order_df in grouped_order_df:
+                    if order_df.shape[0] > 1:
+                        longest_interval = order_df['created_at_date'].diff().max().days
+                    else :
+                        longest_interval = numpy.nan
+
                 transformed_data_frame.loc[customer_id] = [
                     grouped_order_df.num_items.sum().max(),
                     grouped_order_df.revenue.sum().max(),
                     customer_df.revenue.sum(),
                     customer_df.num_items.sum(),
                     (last_order_date - customer_df.created_at_date.max()).days,
-                    5
+                    longest_interval
+
                 ]
+
+            mean_longest_interval = transformed_data_frame.longest_interval.mean()
+            transformed_data_frame = transformed_data_frame.apply(lambda x: x.fillna(value=transformed_data_frame['days_since_last_order']+mean_longest_interval))
             transformed_data_frame.index.name = 'customer_id'
+
             return transformed_data_frame
 
         except Exception as transform_exception:
@@ -63,16 +72,9 @@ class CLVUtils:
 
     @staticmethod
     def predict(data_frame, model_filename):
-        try:
-            with open(model_filename, 'rb') as file:
-                model = dill.load(file)
-                #data = np.array([[1,2,4,5,6,6],[1,2,4,5,6,6]])
-                #print(model.predict(data))
-                # dummy prediction
-                data_frame['predicted_clv'] = pd.Series(np.random.randn(len(data_frame.index)), index=data_frame.index)
-                return data_frame
-        except Exception as predict_exception:
-            raise predict_exception
+        with open(model_filename, 'rb') as file:
+            model = dill.load(file)
+            data_frame['predicted_clv'] = model.predict(data_frame.values)
 
     @staticmethod
     def export_to_csv(data_frame, filename):
@@ -83,7 +85,6 @@ class CLVUtils:
 
     @staticmethod
     def save_to_database(data_frame):
-        print("save_to_database")
         try:
             CLVPrediction.clean_table()
             for index, row in data_frame.iterrows():

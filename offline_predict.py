@@ -1,10 +1,12 @@
 import os
 import sys
+import numpy
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_path + '/src/includes')
 
 from clv_utils import CLVUtils
+
 
 def predict_and_import():
     clv_utils = CLVUtils()

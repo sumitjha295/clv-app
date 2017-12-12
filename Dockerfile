@@ -1,5 +1,4 @@
-FROM ubuntu_py36_mysql
-MAINTAINER Sumit "sumitjha295@gmail.com"
+FROM sumitjha295/ubuntu_py36_mysql:latest
 
-CMD service mysql start
+MAINTAINER Sumit "sumitjha295@gmail.com"
 

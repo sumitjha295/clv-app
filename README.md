@@ -1,3 +1,1 @@
 # ls-app
-run test
-``

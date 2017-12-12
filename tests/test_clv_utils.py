@@ -1,6 +1,11 @@
 from twisted.trial import unittest
-from clv_utils import CLVUtils
 import os
+import sys
+
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_path + '/../src/includes')
+from clv_utils import CLVUtils
 
 
 class TestCLVUtils(unittest.TestCase) :
@@ -48,8 +53,8 @@ class TestCLVUtils(unittest.TestCase) :
         self.assertEqual(df.loc['37d67f5feef4cb754056a54841e43ad9'].max_revenue, 57.54)
         self.assertEqual(df.loc['37d67f5feef4cb754056a54841e43ad9'].total_orders, 9)
         self.assertEqual(df.loc['37d67f5feef4cb754056a54841e43ad9'].total_revenue, 64.91)
-        self.assertEqual(df.loc['37d67f5feef4cb754056a54841e43ad9'].days_since_last_order, 46)
-        self.assertEqual(df.loc['37d67f5feef4cb754056a54841e43ad9'].longest_interval, 5)
+        self.assertEqual(df.loc['37d67f5feef4cb754056a54841e43ad9'].days_since_last_order, 16)
+        self.assertEqual(df.loc['37d67f5feef4cb754056a54841e43ad9'].longest_interval, 0)
 
     def test_clv_predict(self):
         df = self.clv_utils.import_from_csv(self.clv_resource_path)
