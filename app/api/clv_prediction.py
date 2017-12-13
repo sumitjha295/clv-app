@@ -56,7 +56,7 @@ class CLVPrediction:
     def load(self):
         data = self.find_by_customer_id(self.customer_id)
         if len(data) == 0:
-            raise ValueError('customer %s does not exist' %self.customer_id)
+            raise ValueError('customer %s does not exist' % self.customer_id)
         else:
             self.id = data[0].id
             self.max_number_item = data[0].max_number_item

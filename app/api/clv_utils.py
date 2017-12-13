@@ -13,7 +13,8 @@ class CLVUtils:
     @staticmethod
     def import_from_csv(filename, num_rows=None):
         try:
-            columns = ['order_id', 'order_item_id', 'num_items', 'revenue', 'created_at_date']
+            columns = ['order_id', 'order_item_id', 'num_items', 'revenue',
+                       'created_at_date']
             imported_df = pd.read_csv(
                 filename,
                 index_col='customer_id',
@@ -47,8 +48,9 @@ class CLVUtils:
                 longest_interval = -1
                 for order_id, order_df in grouped_order_df:
                     if order_df.shape[0] > 1:
-                        longest_interval = order_df['created_at_date'].diff().max().days
-                    else :
+                        longest_interval = \
+                            order_df['created_at_date'].diff().max().days
+                    else:
                         longest_interval = numpy.nan
 
                 transformed_data_frame.loc[customer_id] = [
@@ -61,8 +63,16 @@ class CLVUtils:
 
                 ]
 
-            mean_longest_interval = transformed_data_frame.longest_interval.mean()
-            transformed_data_frame = transformed_data_frame.apply(lambda x: x.fillna(value=transformed_data_frame['days_since_last_order']+mean_longest_interval))
+            mean_longest_interval = \
+                transformed_data_frame.longest_interval.mean()
+
+            transformed_data_frame = \
+                transformed_data_frame.apply(
+                    lambda x: x.fillna(
+                        value=transformed_data_frame['days_since_last_order'] +
+                        mean_longest_interval)
+                        )
+
             transformed_data_frame.index.name = 'customer_id'
 
             return transformed_data_frame
@@ -75,6 +85,8 @@ class CLVUtils:
         with open(model_filename, 'rb') as file:
             model = dill.load(file)
             data_frame['predicted_clv'] = model.predict(data_frame.values)
+
+        return data_frame
 
     @staticmethod
     def export_to_csv(data_frame, filename):

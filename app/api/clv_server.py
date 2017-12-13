@@ -1,9 +1,6 @@
-from flask import Flask, jsonify
-import sys
 import os
-current_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, current_path + '/src/includes')
-from db_controller import  DbController
+from flask import Flask, jsonify
+from db_controller import DbController
 from clv_prediction import CLVPrediction
 
 app = Flask(__name__)
@@ -46,4 +43,6 @@ def read_customer_clv(customer_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=False,host='0.0.0.0', port=5000)
+    port = os.getenv('PORT', 5000)
+    host = os.getenv('HOST', '0.0.0.0')
+    app.run(debug=False, host=host, port=int(port))

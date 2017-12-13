@@ -1,4 +1,8 @@
-from twisted.trial import unittest
+import unittest
+import sys
+import os
+current_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_path + '/../api')
 from db_controller import DbController
 from settings import db_config
 
@@ -23,9 +27,11 @@ class TestDbController(unittest.TestCase):
         """
         Test db execute
         """
-        db_object = DbController();
+        db_object = DbController()
         cfg = db_config()
-        query = 'SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = %s'
+        query = 'SELECT SCHEMA_NAME \
+                    FROM INFORMATION_SCHEMA.SCHEMATA \
+                    WHERE SCHEMA_NAME = %s'
         results = db_object.execute_select(query, [cfg["db"]])
         self.assertEqual(db_object.row_count, 1)
         self.assertEqual(len(results), 1)

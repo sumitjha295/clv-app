@@ -8,7 +8,12 @@ class DbController:
         self.user = cfg['user']
         self.password = cfg['password']
         self.db = cfg['db']
-        self.connection = db.connect(self.host, self.user, self.password, self.db);
+        self.connection = db.connect(
+            self.host,
+            self.user,
+            self.password,
+            self.db
+            )
         self.row_count = -1
         self.last_inserted_id = -1
         self.last_row_id = -1
