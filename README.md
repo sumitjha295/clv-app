@@ -30,11 +30,16 @@ CREATE TABLE IF NOT EXISTS ls_db.tbl_clv_prediction (
 
 ```
 Or use preconfigured docker image:
-
+Go to app folder
+build
 ```shell
-docker pull sumitjha295/u16p36mysql
+docker build -f  Dockerfile .
 ```
-
+predict and run RESTful service
+```shell
+docker run -it <image_id>  app <num_rows>
+docker run -it -p 5000:5000 88955f78d824  app 1000
+```
 
 ## Getting Started
 
@@ -66,14 +71,8 @@ PORT=5000 python3 api/clv_server.py
 Once the API is up, you can test the endpoints by:
 
 ```shell
-curl -X GET 127.0.0.1:3000/v1/clv/<customer_id>
+curl -X GET 127.0.0.1:5000/v1/clv/<customer_id>
 ```
-
-We also integrated Swagger document. You can open
-```
-http://127.0.0.1:5000/apidoc
-```
-to check the endpoints.
 
 
 ## Unittest

@@ -21,5 +21,8 @@ def predict_and_import(num_rows=None):
 
 
 if __name__ == '__main__':
-    num_rows = os.getenv('NUM_ROWS', 100)
-    predict_and_import(int(num_rows))
+    num_rows = os.getenv('NUM_ROWS', -1)
+    if int(num_rows) > 0:
+        predict_and_import(int(num_rows))
+    else:
+        predict_and_import()
